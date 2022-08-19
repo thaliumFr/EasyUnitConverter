@@ -20,9 +20,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pyinstaller main.spec
-
+      - name: Build exe
+        run: pyinstaller main.spec
       - uses: actions/upload-artifact@v3
         with:
           name: EasyUnitConverter
-          path: src/dist
+          path: dist
