@@ -15,21 +15,17 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+
+      - name: Install python
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
       - name: PyInstaller Windows
         uses: JackMcKew/pyinstaller-action-windows@v0.1.2
-        with:
-          path: src
-      - name: PyInstaller Linux
-        uses: JackMcKew/pyinstaller-action-linux@0.1.4
         with:
           path: src
 
       - uses: actions/upload-artifact@v2
         with:
-          name: name-of-artifact
+          name: UnitConverter
           path: src/dist/windows
