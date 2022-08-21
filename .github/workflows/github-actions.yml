@@ -20,31 +20,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Build exe
-        run: pyinstaller main.spec
-      - uses: actions/upload-artifact@v3
+      - name: PyInstaller Windows
+        uses: JackMcKew/pyinstaller-action-windows@v0.1.2
         with:
-          name: EasyUnitConverter
-          path: dist
-      - name: CreateRelease
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: src
+      - name: PyInstaller Linux
+        uses: JackMcKew/pyinstaller-action-linux@0.1.4
         with:
-          tag_name: ${{ github.event.head_commit.message }}
-          release_name: ${{ github.event.head_commit.message }}
-          overwrite: true
-          body: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      - name: UploadAssets
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: src
+
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/UnitConverter.exe
-          asset_name: UnitConverter.exe
-          asset_content_type: application/zip
+          name: name-of-artifact
+          path: src/dist/windows
