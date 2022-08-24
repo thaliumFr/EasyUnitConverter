@@ -15,10 +15,9 @@ def copy_clipboard() -> str:
     sleep(.01)  # ctrl-c is usually very fast but your program may execute faster
     return pyperclip.paste()
 
-def SplitNumStr(st:str) -> list[str]:
+def SplitNumStr(st:str):
     res = re.split('([-+]?\d+\.\d+)|([-+]?\d+)', st.strip())
-    res_f = [r.strip() for r in res if r is not None and r.strip() != '']
-    return res_f
+    return [r.strip() for r in res if r is not None and r.strip() != '']
 
 if __name__ == "__main__":
     while True:
